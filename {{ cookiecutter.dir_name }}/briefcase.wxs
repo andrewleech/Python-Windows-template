@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <?define ProductVersion = "{{ cookiecutter.version }}" ?>
 <?define ProductUpgradeCode = "{{ cookiecutter.guid }}" ?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
    <Product
             Id="*"
             UpgradeCode="$(var.ProductUpgradeCode)"
@@ -43,6 +44,24 @@
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder">
                 <Directory Id="AppDir" Name="{{ cookiecutter.formal_name }}">
+                    <Component KeyPath="yes"
+                            Id="ApplicationShortcuts1"
+                            Guid="12345678-1234-1234-1234-444444444444">
+
+                        <CreateFolder>
+                            <util:PermissionEx User="Users" GenericAll="yes"/>
+                        </CreateFolder>
+
+
+                        <Shortcut
+                                Id="ApplicationShortcutFolder"
+                                Name="{{ cookiecutter.formal_name }}"
+                                Icon="ProductIcon"
+                                Description="{{ cookiecutter.description }}"
+                                Target="[DIR_python]\pythonw.exe"
+                                WorkingDirectory="AppDir"
+                                Arguments="app\start.py" />
+                    </Component>
 <!-- CONTENT -->
                 </Directory>
             </Directory>
@@ -86,6 +105,7 @@
 <!-- CONTENTREFS -->
 
             <ComponentRef Id="ApplicationShortcuts"/>
+            <ComponentRef Id="ApplicationShortcuts1"/>
         </Feature>
 
         <UI Id="UserInterface">
