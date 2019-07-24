@@ -44,6 +44,8 @@
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder">
                 <Directory Id="AppDir" Name="{{ cookiecutter.formal_name }}">
+                    <Directory Id="WorkingDir" Name="app"> </Directory>
+                
                     <Component KeyPath="yes"
                             Id="ApplicationShortcuts"
                             Guid="12345678-1234-1234-1234-222222222222">
@@ -57,8 +59,8 @@
                                 Icon="ProductIcon"
                                 Description="{{ cookiecutter.description }}"
                                 Target="[DIR_python]\pythonw.exe"
-                                WorkingDirectory="AppDir"
-                                Arguments="app\start.py" />
+                                WorkingDirectory="WorkingDir"
+                                Arguments="start.py" />
 <!-- SHORTCUTS -->
                     </Component>
 <!-- CONTENT -->
@@ -80,8 +82,8 @@
                                 Icon="ProductIcon"
                                 Description="{{ cookiecutter.description }}"
                                 Target="[DIR_python]\pythonw.exe"
-                                WorkingDirectory="AppDir"
-                                Arguments="app\start.py" />
+                                WorkingDirectory="WorkingDir"
+                                Arguments="start.py" />
 <!-- SHORTCUTS -->
                         <RegistryValue
                                 Root="HKCU"
